@@ -74,10 +74,9 @@ function create() {
   this.physics.add.collider(bird, topColumns);
   this.physics.add.collider(bird, bottomColumns);
 
-  instructions = this.add.text(0, 0, `Instructions: Press space bar to start`, { fontFamily: '"Comic Sans MS", Times, serif', fontSize: "20px", color: "white", backgroundColor: "black" });
+  
   score=0;
-  scoreText= this.add.text(600,0 ,score+" high score"+ highScore,  { fontFamily: '"Comic Sans MS", Times, serif', fontSize: "20px", color: "white", } )
-  Phaser.Display.Align.In.BottomCenter(instructions, background ,0,-50);
+  scoreText= this.add.text(600,0 ,score+"    high score: "+ highScore,  { fontFamily: '"Comic Sans MS", Times, serif', fontSize: "20px", color: "white", } )
 
   playButton= this.add.text(400, 300, "Play", { fontFamily: '"Comic Sans MS", Times, serif', fontSize: "50px", color: "white", backgroundColor: "black", border:"2px solid red", border_radius: "50px"}).setOrigin(0.5).setInteractive();
 
@@ -87,7 +86,6 @@ function create() {
 function update() {
   playButton.on("pointerdown", () => {
         gameStarted=true ;
-        instructions.text = 'Instructions: Press the "^" button to stay upright\nAnd don\'t hit the columns or ground';
         playButton.setVisible(false);
 
     });
@@ -97,7 +95,7 @@ function update() {
       bird.setVelocity(0);
     }
     this.input.on("pointerdown", () =>{
-      if( !hasLanded && !hasBumped && gameStarted){
+      if(  !hasLanded && !hasBumped && gameStarted){
         bird.setVelocityY(-160);
     }
     });
@@ -108,7 +106,6 @@ function update() {
         hasLanded=false;
         hasBumped=false;
         bird.setVelocityX(0);
-        instructions.text="oh no! you crashed";
         this.scene.restart();
         
         if (score>highScore){
@@ -131,7 +128,7 @@ function update() {
       column.x -=speed;
       if (column.x <-20){
         score+=1;
-        scoreText.text= score +"high score"+ highScore;
+        scoreText.text= score +"  high score: "+ highScore;
         column.x=820;
         column.y +=space;}
       column.refreshBody();
